@@ -1,13 +1,22 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int a = sc.nextInt(), b = sc.nextInt(), c = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] input = br.readLine().split(" ");
 
-        System.out.println((a+b)%c);
-        System.out.println(((a%c)+(b%c))%c);
-        System.out.println((a*b)%c);
-        System.out.println(((a%c)*(b%c))%c);
+        int a = Integer.parseInt(input[0]);
+        int b = Integer.parseInt(input[1]);
+        int c = Integer.parseInt(input[2]);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append((a + b) % c).append("\n")
+          .append((a % c + b % c) % c).append("\n")
+          .append((a * b) % c).append("\n")
+          .append((a % c * b % c) % c);
+
+        System.out.print(sb);
     }
 }
