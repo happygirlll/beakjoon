@@ -1,43 +1,33 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-        String s = br.readLine().toUpperCase(); // 모두 대문자로 변환
-        
-        HashMap<Character,Integer> freqMap=new HashMap<>();
 
-        // 빈도 계산
-        for (char c : s.toCharArray()) {
-            freqMap.put(c, freqMap.getOrDefault(c, 0) + 1);
+        int[] arr = new int[26]; //영문자 개수는 26개
+
+        int c = System.in.read();
+
+        while (c > 64){ //공백을 입력 받으면 종료됨
+            if(c<91){
+                arr[c-65] ++; //해당 인덱스의 값 1 증가
+            }
+            else{ //소문자 범위
+                arr[c-97] ++;
+            }
+            c = System.in.read();
         }
 
-        // 1. 최대 빈도 찾기
-        int maxFreq = 0;
-        for (int value : freqMap.values()) {
-            if (value > maxFreq) {
-                maxFreq = value;
+        int max = -1;
+        int ch = -2; //?는 63이다.
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+                ch = i;
+            }
+            else if (arr[i] == max){
+                ch = -2;
             }
         }
-
-        // 2. 최대 빈도에 해당하는 문자 확인
-        char maxChar = '?';
-        boolean bool = false;
-        for (char key : freqMap.keySet()) {
-            if (freqMap.get(key) == maxFreq) {
-                if (maxChar == '?') { // 첫 번째 최대 빈도 문자
-                    maxChar = key;
-                } else { // 두 번째 최대 빈도 문자 발견
-                    bool = true;
-                    break;
-                }
-            }
-        }
-
-        // 결과 출력
-        System.out.println(bool ? "?" : maxChar);
+        System.out.print((char)(ch+65)); // 대문자로 출력해야하므로 65을 더해줌.
     }
 }
